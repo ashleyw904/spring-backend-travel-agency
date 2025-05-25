@@ -41,6 +41,11 @@ public class CheckoutServiceImpl implements CheckoutService{
         //retrieve order info from data transfer object
         Cart cart = purchase.getCart();
 
+        //validate
+        if (cart == null || cart.getCartItem() == null || cart.getCartItem().isEmpty()) {
+            return new PurchaseResponse("Error: the cart cannot be empty.");
+        }
+
         //generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         cart.setOrderTrackingNumber(orderTrackingNumber);
