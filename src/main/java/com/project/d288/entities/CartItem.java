@@ -33,7 +33,7 @@ public class CartItem {
     private Set<Excursion> excursions;
 
     @ManyToOne
-    @JoinColumn(name="cart_id")
+    @JoinColumn(name="cart_id", nullable = false)
     private Cart cart;
 
     @CreationTimestamp
@@ -46,4 +46,6 @@ public class CartItem {
 
 
     public CartItem() {}
+
+
 }

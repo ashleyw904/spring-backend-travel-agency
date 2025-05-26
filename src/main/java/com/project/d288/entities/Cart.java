@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -43,11 +44,14 @@ public class Cart {
     private Date last_update;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
     private Set<CartItem> cartItem= new HashSet<>();
+
+    public Cart() {
+    }
 
     public void add(CartItem item) {
         if(item != null) {
@@ -59,6 +63,21 @@ public class Cart {
         }
     }
 
-    public Cart() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cart cart = (Cart) o;
+
+        return Objects.equals(id, cart.id);
     }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
 }
+
+

@@ -2,80 +2,67 @@ package com.project.d288.services;
 
 import com.project.d288.dao.CartItemRepository;
 import com.project.d288.dao.CartRepository;
-import com.project.d288.dao.CustomerRepository;
 import com.project.d288.entities.Cart;
 import com.project.d288.entities.CartItem;
 import com.project.d288.entities.Customer;
 import com.project.d288.entities.StatusType;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.UUID;
 
 @Service
-public class CheckoutServiceImpl implements CheckoutService{
+public class CheckoutServiceImpl implements CheckoutService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
     private CartRepository cartRepository;
-
-    @Autowired
     private CartItemRepository cartItemRepository;
 
     public CheckoutServiceImpl(CartRepository cartRepository,
                                CartItemRepository cartItemRepository) {
-        this.customerRepository = customerRepository;
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
     }
-
 
     @Override
     @Transactional
     public PurchaseResponse placeOrder(Purchase purchase) {
 
-        //retrieve order info from data transfer object
+        // Retrieve order info from data transfer object
         Cart cart = purchase.getCart();
 
-        //validate
-        if (cart == null || cart.getCartItem() == null || cart.getCartItem().isEmpty()) {
-            return new PurchaseResponse("Error: the cart cannot be empty.");
-        }
+//        // Validate the cart and its items
+//        if (cart == null || cart.getCartItems() == null || cart.getCartItems().isEmpty()) {
+//            return new PurchaseResponse("Error: The cart cannot be empty.");
+//        }
 
-        //generate tracking number
+        // Generate tracking number and assign it to the cart
         String orderTrackingNumber = generateOrderTrackingNumber();
         cart.setOrderTrackingNumber(orderTrackingNumber);
 
-        //populate cart with cartItems
-        Set<CartItem> cartItems = purchase.getCartItems();
-        cartItems.forEach(item -> item.setCart(cart));
-        cartItems.forEach(item -> cart.add(item));
+        // Populate cart with cartItems
+        Set<CartItem> cartItem = purchase.getCartItem();
+        cartItem.forEach(item -> item.setCart(cart));
+        cartItem.forEach(item -> cart.add(item));
 
-        //populate customer with cart
+        // Set status
+        cart.setStatus(StatusType.ordered);
+
+        // Save cart with generated tracking number
+        cartRepository.save(cart);
+
+        // Populate customer with cart
         Customer customer = purchase.getCustomer();
         customer.add(cart);
 
-        //set status
-        cart.setStatus(StatusType.ordered);
-
-        //save
-        cartRepository.save(cart);
-
-        //return a response
+        // Return a response with the tracking number
         return new PurchaseResponse(orderTrackingNumber);
-
     }
 
     private String generateOrderTrackingNumber() {
-
-            //generate random UUID
-            return UUID.randomUUID().toString();
-
+        // Generate random UUID
+        return UUID.randomUUID().toString();
     }
 
-
 }
+

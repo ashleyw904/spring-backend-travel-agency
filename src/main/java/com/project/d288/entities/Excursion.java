@@ -19,7 +19,7 @@ public class Excursion {
     @Column(name="excursion_id")
     private Long id;
 
-    @Column(name="exceursion_title")
+    @Column(name="excursion_title")
     private String excursion_title;
 
     @Column(name="excursion_price")
@@ -38,8 +38,8 @@ public class Excursion {
     @JoinColumn(name="vacation_id")
     private Vacation vacation;
 
-    @ManyToMany(mappedBy = "excursions")
-    private Set<CartItem> cartItems;
+    @ManyToMany( mappedBy = "excursions")
+    private Set<CartItem> cartItem;
 
 
     public Excursion() {}
