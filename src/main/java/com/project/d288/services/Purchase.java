@@ -14,7 +14,7 @@ public class Purchase {
 
     private Cart cart;
 
-   private Set<CartItem> cartItem = new HashSet<>();
+   private Set<CartItem> cartItems = new HashSet<>();
 
 
     public Customer getCustomer() {
@@ -25,12 +25,12 @@ public class Purchase {
         this.customer = customer;
     }
 
-    public Set<CartItem> getCartItem() {
-        return cartItem;
+    public Set<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setCartItem(Set<CartItem> cartItem) {
-        this.cartItem = cartItem;
+    public void setCartItems(Set<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public Cart getCart() {
