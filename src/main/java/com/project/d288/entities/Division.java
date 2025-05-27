@@ -1,8 +1,6 @@
 package com.project.d288.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,8 +10,6 @@ import java.util.Set;
 
 @Entity
 @Table(name="divisions")
-@Getter
-@Setter
 public class Division {
 
     @Id
@@ -47,5 +43,59 @@ public class Division {
         this.country = country;
     }
 
+    //constructor
     public Division() {}
+
+    //getters/setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDivision_name() {
+        return division_name;
+    }
+
+    public void setDivision_name(String division_name) {
+        this.division_name = division_name;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
+    }
+
+    public Date getLast_update() {
+        return last_update;
+    }
+
+    public void setLast_update(Date last_update) {
+        this.last_update = last_update;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public Long getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(Long country_id) {
+        this.country_id = country_id;
+    }
 }

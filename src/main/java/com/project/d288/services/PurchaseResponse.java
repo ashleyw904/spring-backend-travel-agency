@@ -1,14 +1,17 @@
 package com.project.d288.services;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@Data
 public class PurchaseResponse {
+    private String orderTrackingNumber;
 
-    private final String orderTrackingNumber;
+    public PurchaseResponse(String orderTrackingNumber) {
+        this.orderTrackingNumber = orderTrackingNumber;
+    }
 
+    public String getOrderTrackingNumber() {
+        return orderTrackingNumber;
+    }
+
+    public void setOrderTrackingNumber(String orderTrackingNumber) {
+        this.orderTrackingNumber = orderTrackingNumber;
+    }
 }
