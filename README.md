@@ -2,7 +2,7 @@
 
 ## Overview
 This is a Java Spring Boot back-end application for a travel agency checkout system. 
-It demonstrates object-oriented design, MySQL integration, REST API development, and service implementation for an Angular front-end.
+It demonstrates object-oriented design, MySQL integration, REST API development, and service implementation for an existing Angular front-end.
 
 ## Features
 - REST API for processing customer orders
